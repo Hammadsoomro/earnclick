@@ -8,6 +8,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ViewAds from "./pages/ViewAds";
+import Referrals from "./pages/Referrals";
+import Withdraw from "./pages/Withdraw";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,11 +36,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/login" element={<ComingSoon title="Login" />} />
-          <Route path="/register" element={<ComingSoon title="Register" />} />
-          <Route path="/ads" element={<ComingSoon title="View Ads" />} />
-          <Route path="/referrals" element={<ComingSoon title="Referrals" />} />
-          <Route path="/withdraw" element={<ComingSoon title="Withdraw" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/ads" element={<ViewAds />} />
+          <Route path="/referrals" element={<Referrals />} />
+          <Route path="/withdraw" element={<Withdraw />} />
           <Route path="/faq" element={<ComingSoon title="FAQ" />} />
           <Route path="/help" element={<ComingSoon title="Help Center" />} />
           <Route path="/contact" element={<ComingSoon title="Contact Us" />} />
