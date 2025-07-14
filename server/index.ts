@@ -8,8 +8,8 @@ import { getAvailableAds, viewAd, getAdStats, createAd } from "./routes/ads";
 export function createServer() {
   const app = express();
 
-  // Connect to MongoDB
-  connectDatabase();
+  // Connect to MongoDB (non-blocking)
+  connectDatabase().catch(console.error);
 
   // Middleware
   app.use(cors());

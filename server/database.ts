@@ -4,7 +4,7 @@ const MONGODB_URI =
   process.env.MONGODB_URI ||
   "mongodb+srv://admin:admin123@cluster0.bqlcjok.mongodb.net/earnclick?retryWrites=true&w=majority&appName=Cluster0";
 
-// Connect to MongoDB
+// Connect to MongoDB (non-blocking)
 export const connectDatabase = async () => {
   try {
     if (mongoose.connection.readyState === 0) {
@@ -13,7 +13,8 @@ export const connectDatabase = async () => {
     }
   } catch (error) {
     console.error("❌ MongoDB connection error:", error);
-    process.exit(1);
+    console.log("🔄 App will continue without database functionality");
+    // Don't exit process - let app run without database
   }
 };
 

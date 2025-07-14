@@ -1,12 +1,85 @@
 import { RequestHandler } from "express";
+import mongoose from "mongoose";
 import { Ad } from "../models/Ad";
 import { AdView } from "../models/AdView";
 import { User } from "../models/User";
 import { Referral } from "../models/Referral";
 
+// Check if database is connected
+const isDatabaseConnected = () => {
+  return mongoose.connection.readyState === 1;
+};
+
 // Get available ads for user
 export const getAvailableAds: RequestHandler = async (req, res) => {
   try {
+    // If database not connected, return mock ads for demo
+    if (!isDatabaseConnected()) {
+      const mockAds = [
+        {
+          _id: "1",
+          title: "Premium Offers & Rewards",
+          description: "High-converting premium offers with instant rewards",
+          url: "https://www.profitableratecpm.com/d2j586tys?key=89f7c2c680b39d6d0bb2f4e12f5f8a24",
+          category: "Shopping",
+          payout: 0.85,
+          duration: 10,
+          type: "Direct Link",
+          advertiser: "Adsterra",
+          difficulty: "Easy",
+          featured: true,
+          isActive: true,
+          viewCount: 0,
+        },
+        {
+          _id: "2",
+          title: "Exclusive Gaming Offers",
+          description: "Top gaming platforms and exclusive bonuses",
+          url: "https://www.profitableratecpm.com/hftzqqd1t?key=db2c37affb6056fc6e81c50984a5c9f0",
+          category: "Entertainment",
+          payout: 0.95,
+          duration: 10,
+          type: "Direct Link",
+          advertiser: "Adsterra",
+          difficulty: "Easy",
+          featured: true,
+          isActive: true,
+          viewCount: 0,
+        },
+        {
+          _id: "3",
+          title: "Financial Services & Apps",
+          description: "Best financial apps and investment platforms",
+          url: "https://www.profitableratecpm.com/s8d9m4rh9?key=ab6e0251610d024fabee48e7426b0f4f",
+          category: "Finance",
+          payout: 1.15,
+          duration: 15,
+          type: "Direct Link",
+          advertiser: "Adsterra",
+          difficulty: "Medium",
+          featured: true,
+          isActive: true,
+          viewCount: 0,
+        },
+        {
+          _id: "4",
+          title: "Technology & Software",
+          description: "Latest tech products and software solutions",
+          url: "https://www.profitableratecpm.com/wgytz0b63m?key=9f277b8a79cf1893dec2ec9e4e268769",
+          category: "Technology",
+          payout: 1.25,
+          duration: 15,
+          type: "Direct Link",
+          advertiser: "Adsterra",
+          difficulty: "Medium",
+          featured: true,
+          isActive: true,
+          viewCount: 0,
+        },
+      ];
+      return res.json(mockAds);
+    }
+
     const userId = req.user?._id;
     const { category, type } = req.query;
 

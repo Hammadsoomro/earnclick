@@ -1,13 +1,25 @@
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import { User } from "../models/User";
 import { Referral } from "../models/Referral";
+
+// Check if database is connected
+const isDatabaseConnected = () => {
+  return mongoose.connection.readyState === 1;
+};
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-here";
 
 // Register new user
 export const handleRegister: RequestHandler = async (req, res) => {
   try {
+    if (!isDatabaseConnected()) {
+      return res.status(503).json({
+        error: "Database not available. Please try again later.",
+      });
+    }
+
     const { email, password, name, referralCode } = req.body;
 
     // Check if user already exists
@@ -73,6 +85,12 @@ export const handleRegister: RequestHandler = async (req, res) => {
 // Login user
 export const handleLogin: RequestHandler = async (req, res) => {
   try {
+    if (!isDatabaseConnected()) {
+      return res.status(503).json({
+        error: "Database not available. Please try again later.",
+      });
+    }
+
     const { email, password } = req.body;
 
     // Find user by email
