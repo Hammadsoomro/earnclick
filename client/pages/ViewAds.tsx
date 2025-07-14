@@ -40,106 +40,122 @@ export default function ViewAds() {
   const [adsViewedToday, setAdsViewedToday] = useState(24);
 
   const adCategories = [
-    { name: "All", count: 45, active: true },
-    { name: "Shopping", count: 12, active: false },
-    { name: "Technology", count: 8, active: false },
-    { name: "Travel", count: 6, active: false },
-    { name: "Food", count: 9, active: false },
-    { name: "Finance", count: 5, active: false },
-    { name: "Entertainment", count: 5, active: false },
+    { name: "All", count: 6, active: true },
+    { name: "Shopping", count: 1, active: false },
+    { name: "Technology", count: 1, active: false },
+    { name: "Travel", count: 1, active: false },
+    { name: "Health", count: 1, active: false },
+    { name: "Finance", count: 1, active: false },
+    { name: "Entertainment", count: 1, active: false },
   ];
 
   const availableAds = [
     {
       id: 1,
-      title: "Premium Fashion Sale - 50% Off",
-      description: "Discover the latest fashion trends with amazing discounts",
+      title: "Premium Offers & Rewards",
+      description: "High-converting premium offers with instant rewards",
       category: "Shopping",
-      payout: 0.75,
-      duration: 30,
+      payout: 0.85,
+      duration: 10,
       difficulty: "Easy",
-      rating: 4.8,
-      advertiser: "FashionHub",
-      image: "/api/placeholder/300/200",
-      type: "Banner",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "New Tech Gadgets Review",
-      description: "Latest smartphone reviews and tech comparisons",
-      category: "Technology",
-      payout: 1.0,
-      duration: 45,
-      difficulty: "Medium",
       rating: 4.9,
-      advertiser: "TechReview",
-      image: "/api/placeholder/300/200",
-      type: "Video",
-      featured: false,
-    },
-    {
-      id: 3,
-      title: "Dream Vacation Deals",
-      description: "Explore exotic destinations with unbeatable prices",
-      category: "Travel",
-      payout: 0.6,
-      duration: 25,
-      difficulty: "Easy",
-      rating: 4.7,
-      advertiser: "TravelMore",
-      image: "/api/placeholder/300/200",
-      type: "Native",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Food Delivery App",
-      description: "Order your favorite food with free delivery",
-      category: "Food",
-      payout: 0.5,
-      duration: 20,
-      difficulty: "Easy",
-      rating: 4.6,
-      advertiser: "QuickEats",
-      image: "/api/placeholder/300/200",
-      type: "Banner",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Investment Opportunities",
-      description: "Start investing with as little as $10",
-      category: "Finance",
-      payout: 1.25,
-      duration: 60,
-      difficulty: "Hard",
-      rating: 4.8,
-      advertiser: "InvestSmart",
+      advertiser: "Adsterra",
       image: "/api/placeholder/300/200",
       type: "Direct Link",
       featured: true,
+      url: "https://www.profitableratecpm.com/d2j586tys?key=89f7c2c680b39d6d0bb2f4e12f5f8a24",
+    },
+    {
+      id: 2,
+      title: "Exclusive Gaming Offers",
+      description: "Top gaming platforms and exclusive bonuses",
+      category: "Entertainment",
+      payout: 0.95,
+      duration: 10,
+      difficulty: "Easy",
+      rating: 4.8,
+      advertiser: "Adsterra",
+      image: "/api/placeholder/300/200",
+      type: "Direct Link",
+      featured: true,
+      url: "https://www.profitableratecpm.com/hftzqqd1t?key=db2c37affb6056fc6e81c50984a5c9f0",
+    },
+    {
+      id: 3,
+      title: "Financial Services & Apps",
+      description: "Best financial apps and investment platforms",
+      category: "Finance",
+      payout: 1.15,
+      duration: 15,
+      difficulty: "Medium",
+      rating: 4.7,
+      advertiser: "Adsterra",
+      image: "/api/placeholder/300/200",
+      type: "Direct Link",
+      featured: true,
+      url: "https://www.profitableratecpm.com/s8d9m4rh9?key=ab6e0251610d024fabee48e7426b0f4f",
+    },
+    {
+      id: 4,
+      title: "Technology & Software",
+      description: "Latest tech products and software solutions",
+      category: "Technology",
+      payout: 1.25,
+      duration: 15,
+      difficulty: "Medium",
+      rating: 4.9,
+      advertiser: "Adsterra",
+      image: "/api/placeholder/300/200",
+      type: "Direct Link",
+      featured: true,
+      url: "https://www.profitableratecpm.com/wgytz0b63m?key=9f277b8a79cf1893dec2ec9e4e268769",
+    },
+    {
+      id: 5,
+      title: "Health & Wellness Products",
+      description: "Premium health and wellness offers",
+      category: "Health",
+      payout: 0.75,
+      duration: 20,
+      difficulty: "Easy",
+      rating: 4.6,
+      advertiser: "Health Partners",
+      image: "/api/placeholder/300/200",
+      type: "Banner",
+      featured: false,
     },
     {
       id: 6,
-      title: "Streaming Service Trial",
-      description: "Free 30-day trial of premium entertainment",
-      category: "Entertainment",
-      payout: 0.8,
-      duration: 35,
+      title: "Travel Deals & Booking",
+      description: "Exclusive travel offers and booking discounts",
+      category: "Travel",
+      payout: 0.65,
+      duration: 25,
       difficulty: "Easy",
       rating: 4.5,
-      advertiser: "StreamFlix",
+      advertiser: "Travel Network",
       image: "/api/placeholder/300/200",
-      type: "Video",
+      type: "Native",
       featured: false,
     },
   ];
 
   const handleViewAd = (ad: any) => {
-    setSelectedAd(ad);
-    setIsViewingAd(true);
-    setCountdown(ad.duration);
+    if (ad.type === "Direct Link" && ad.url) {
+      // For direct link ads, open URL immediately and credit earnings
+      window.open(ad.url, "_blank", "noopener,noreferrer");
+      // Credit the user immediately for direct link clicks
+      setEarnedToday(earnedToday + ad.payout);
+      setAdsViewedToday(adsViewedToday + 1);
+
+      // Show success message
+      alert(`Congratulations! You earned $${ad.payout} for clicking the ad!`);
+    } else {
+      // For other ad types, use the existing countdown system
+      setSelectedAd(ad);
+      setIsViewingAd(true);
+      setCountdown(ad.duration);
+    }
   };
 
   useEffect(() => {
@@ -285,11 +301,19 @@ export default function ViewAds() {
                   className="group hover:shadow-lg transition-all duration-300 relative overflow-hidden"
                 >
                   {ad.featured && (
-                    <div className="absolute top-4 left-4 z-10">
+                    <div className="absolute top-4 left-4 z-10 space-y-1">
                       <Badge className="gradient-primary text-primary-foreground border-0">
                         <Star className="h-3 w-3 mr-1" />
                         Featured
                       </Badge>
+                      {ad.advertiser === "Adsterra" && (
+                        <Badge
+                          variant="secondary"
+                          className="bg-orange-500/10 text-orange-600 block"
+                        >
+                          Adsterra Premium
+                        </Badge>
+                      )}
                     </div>
                   )}
 
@@ -353,8 +377,17 @@ export default function ViewAds() {
                         className="w-full gradient-primary"
                         onClick={() => handleViewAd(ad)}
                       >
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Ad & Earn ${ad.payout}
+                        {ad.type === "Direct Link" ? (
+                          <>
+                            <TrendingUp className="mr-2 h-4 w-4" />
+                            Click & Earn ${ad.payout}
+                          </>
+                        ) : (
+                          <>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Ad & Earn ${ad.payout}
+                          </>
+                        )}
                       </Button>
                     </div>
                   </CardContent>
