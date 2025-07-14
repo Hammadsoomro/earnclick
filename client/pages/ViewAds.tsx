@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BannerAd, SquareAd } from "@/components/AdSenseAd";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -206,6 +207,11 @@ export default function ViewAds() {
       <Header />
 
       <div className="container py-8">
+        {/* AdSense Banner */}
+        <div className="mb-6">
+          <BannerAd className="rounded-lg overflow-hidden border" />
+        </div>
+
         {/* Header Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">View Ads & Earn Money</h1>
@@ -286,6 +292,11 @@ export default function ViewAds() {
               </Button>
             ))}
           </div>
+        </div>
+
+        {/* AdSense Square Ad */}
+        <div className="flex justify-center mb-8">
+          <SquareAd className="rounded-lg overflow-hidden border" />
         </div>
 
         {/* Available Ads */}

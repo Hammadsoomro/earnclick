@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { BannerAd, SquareAd } from "@/components/AdSenseAd";
 import {
   Card,
   CardContent,
@@ -140,6 +141,11 @@ export default function Dashboard() {
       <Header />
 
       <div className="container py-8">
+        {/* AdSense Banner */}
+        <div className="mb-6">
+          <BannerAd className="rounded-lg overflow-hidden border" />
+        </div>
+
         {/* Welcome Section */}
         <div className="mb-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -361,6 +367,11 @@ export default function Dashboard() {
                 </Button>
               </CardContent>
             </Card>
+
+            {/* AdSense Square Ad */}
+            <div className="flex justify-center">
+              <SquareAd className="rounded-lg overflow-hidden border" />
+            </div>
 
             {/* Earnings Summary */}
             <Card>
