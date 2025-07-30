@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -29,8 +30,13 @@ import {
 } from "lucide-react";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const { register } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,10 +47,31 @@ export default function Register() {
     subscribeNewsletter: true,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement registration logic
-    console.log("Registration data:", formData);
+    setIsLoading(true);
+    setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    const success = await register({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      referralCode: formData.referralCode,
+    });
+
+    if (success) {
+      navigate("/dashboard", { replace: true });
+    } else {
+      setError("Registration failed. Please try again.");
+    }
+
+    setIsLoading(false);
   };
 
   const benefits = [
@@ -335,13 +362,20 @@ export default function Register() {
                     </div>
                   </div>
 
+                  {/* Error Message */}
+                  {error && (
+                    <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
+                      {error}
+                    </div>
+                  )}
+
                   {/* Submit Button */}
                   <Button
                     type="submit"
                     className="w-full gradient-primary text-lg py-6"
-                    disabled={!formData.agreeToTerms}
+                    disabled={!formData.agreeToTerms || isLoading}
                   >
-                    Create Account & Get $5 Bonus
+                    {isLoading ? "Creating Account..." : "Create Account & Get ₨500 Bonus"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -16,17 +17,34 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Coins, Mail, Lock, ArrowRight } from "lucide-react";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login logic
-    console.log("Login data:", formData);
+    setIsLoading(true);
+    setError("");
+
+    const success = await login(formData.email, formData.password);
+
+    if (success) {
+      const from = location.state?.from?.pathname || "/dashboard";
+      navigate(from, { replace: true });
+    } else {
+      setError("Invalid email or password");
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -137,12 +155,20 @@ export default function Login() {
                   </Label>
                 </div>
 
+                {/* Error Message */}
+                {error && (
+                  <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm">
+                    {error}
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <Button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full gradient-primary text-lg py-6"
                 >
-                  Sign In
+                  {isLoading ? "Signing In..." : "Sign In"}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </form>
