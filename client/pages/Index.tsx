@@ -33,43 +33,43 @@ export default function Index() {
   const features = [
     {
       icon: Eye,
-      title: "آسان Ads دیکھیں",
-      description: "صرف ads پر click کریں اور فوری پیسے کمائیں۔ بہت آسان اور محفوظ۔",
+      title: "Easy Ad Viewing",
+      description: "Simply click on ads and earn money instantly. Very easy and secure.",
       color: "text-blue-500",
       gradient: "from-blue-500 to-cyan-500",
     },
     {
       icon: Users,
-      title: "Referral سسٹم",
-      description: "دوستوں کو invite کریں اور ان کی earnings سے 25% commission پائیں۔",
+      title: "Referral System",
+      description: "Invite friends and earn 25% commission from their earnings forever.",
       color: "text-purple-500",
       gradient: "from-purple-500 to-pink-500",
     },
     {
       icon: DollarSign,
       title: "Instant Payments",
-      description: "EasyPaisa، JazzCash سے فوری withdrawal۔ کوئی delay نہیں۔",
+      description: "Fast withdrawals through PayPal, Bank Transfer, and Crypto. No delays.",
       color: "text-green-500",
       gradient: "from-green-500 to-emerald-500",
     },
     {
       icon: Shield,
-      title: "100% محفوظ",
-      description: "آپ کا data اور payments مکمل طور پر محفوظ۔ کوئی risk نہیں۔",
+      title: "100% Secure",
+      description: "Your data and payments are completely secure. Zero risk guaranteed.",
       color: "text-red-500",
       gradient: "from-red-500 to-orange-500",
     },
     {
       icon: Clock,
-      title: "24/7 کام کریں",
-      description: "دن رات کبھی بھی ads دیکھیں اور پیسے کمائیں۔",
+      title: "Work 24/7",
+      description: "View ads and earn money anytime, day or night. Always available.",
       color: "text-orange-500",
       gradient: "from-orange-500 to-yellow-500",
     },
     {
       icon: TrendingUp,
-      title: "بڑھتی Earnings",
-      description: "Daily bonuses اور premium ads سے زیادہ income۔",
+      title: "Growing Earnings",
+      description: "Increase your income with daily bonuses and premium ad rewards.",
       color: "text-cyan-500",
       gradient: "from-cyan-500 to-blue-500",
     },
@@ -78,42 +78,42 @@ export default function Index() {
   const stats = [
     { label: "Active Users", value: "50K+", icon: Users, color: "text-blue-500" },
     { label: "Ads Viewed", value: "2M+", icon: Eye, color: "text-purple-500" },
-    { label: "Paid Out", value: "₨1Cr+", icon: DollarSign, color: "text-green-500" },
+    { label: "Paid Out", value: "$100K+", icon: DollarSign, color: "text-green-500" },
     { label: "Success Rate", value: "99.9%", icon: TrendingUp, color: "text-orange-500" },
   ];
 
   const testimonials = [
     {
-      name: "احمد علی",
+      name: "Sarah Johnson",
       role: "Student",
-      content: "بہت اچھا platform ہے! 6 months میں 50,000 rupees کمائے ہیں۔",
+      content: "Amazing platform! I've earned over $500 in just 6 months. Perfect for extra income.",
       rating: 5,
-      avatar: "👨‍🎓",
-      earnings: "₨50,000",
+      avatar: "👩‍🎓",
+      earnings: "$500",
     },
     {
-      name: "فاطمہ خان",
-      role: "Housewife",
-      content: "گھر بیٹھے پیسے کمانے کا بہترین طریقہ۔ Referral system زبردست ہے۔",
+      name: "Mike Chen",
+      role: "Freelancer",
+      content: "Best way to earn money from home. The referral system is incredible!",
       rating: 5,
-      avatar: "👩‍💼",
-      earnings: "₨35,000",
+      avatar: "👨‍💻",
+      earnings: "$350",
     },
     {
-      name: "محمد حسن",
+      name: "Lisa Rodriguez",
       role: "Teacher",
-      content: "Daily 2-3 ہزار روپے آسانی سے کما لیتا ہوں۔ Payment بالکل time پر ملتی ہے۔",
+      content: "I easily earn $50-80 daily. Payments are always on time and reliable.",
       rating: 5,
-      avatar: "👨‍🏫",
-      earnings: "₨75,000",
+      avatar: "👩‍🏫",
+      earnings: "$750",
     },
   ];
 
   const paymentMethods = [
-    { name: "EasyPaisa", icon: "💳", popular: true },
-    { name: "JazzCash", icon: "📱", popular: true },
-    { name: "Bank Transfer", icon: "🏦", popular: false },
+    { name: "PayPal", icon: "💳", popular: true },
+    { name: "Bank Transfer", icon: "🏦", popular: true },
     { name: "Cryptocurrency", icon: "₿", popular: false },
+    { name: "Wire Transfer", icon: "📱", popular: false },
   ];
 
   return (
@@ -128,24 +128,24 @@ export default function Index() {
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-        
+
         <div className="container relative py-20 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-6">
                 <Badge className="gradient-primary text-primary-foreground border-0 px-6 py-2 text-lg">
-                  🚀 Pakistan کا #1 PTC Platform
+                  🚀 #1 PTC Platform
                 </Badge>
                 <h1 className="text-4xl lg:text-7xl font-bold tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-primary via-accent to-purple-600 bg-clip-text text-transparent">
-                    آسان طریقے سے
+                    Earn Money
                   </span>
                   <br />
-                  <span className="text-foreground">پیسے کمائیں</span>
+                  <span className="text-foreground">The Easy Way</span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-muted-foreground max-w-lg leading-relaxed">
-                  صرف ads دیکھ کر <span className="font-bold text-primary">روزانہ ہزاروں روپے</span> کمائیں۔ 
-                  دوستوں کو refer کریں اور <span className="font-bold text-accent">زندگی بھر commission</span> پائیں۔
+                  Simply view ads and earn <span className="font-bold text-primary">thousands daily</span>.
+                  Refer friends and get <span className="font-bold text-accent">lifetime commission</span>.
                 </p>
               </div>
 
@@ -156,7 +156,7 @@ export default function Index() {
                   className="gradient-primary text-xl px-10 py-7 rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
                 >
                   <Link to="/register">
-                    ابھی شروع کریں
+                    Start Earning Now
                     <ArrowRight className="ml-3 h-6 w-6" />
                   </Link>
                 </Button>
@@ -168,7 +168,7 @@ export default function Index() {
                 >
                   <Link to="/login">
                     <PlayCircle className="mr-3 h-6 w-6" />
-                    Login کریں
+                    Login Now
                   </Link>
                 </Button>
               </div>
@@ -176,7 +176,7 @@ export default function Index() {
               <div className="flex flex-wrap items-center gap-8 pt-6">
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-success" />
-                  <span className="font-medium">کوئی Hidden Fees نہیں</span>
+                  <span className="font-medium">No Hidden Fees</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="h-6 w-6 text-success" />
@@ -195,7 +195,7 @@ export default function Index() {
                 <Card className="glass-card p-8 rounded-3xl transform rotate-3 hover:rotate-0 transition-all duration-500">
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-2xl font-bold">آج کی Earnings</h3>
+                      <h3 className="text-2xl font-bold">Today's Earnings</h3>
                       <Badge variant="secondary" className="animate-pulse">Live</Badge>
                     </div>
 
@@ -213,10 +213,10 @@ export default function Index() {
                       <div className="flex items-center justify-between p-6 bg-primary/10 rounded-2xl">
                         <div className="flex items-center space-x-4">
                           <DollarSign className="h-8 w-8 text-primary" />
-                          <span className="text-xl font-medium">آج کی Earning</span>
+                          <span className="text-xl font-medium">Today's Earning</span>
                         </div>
                         <span className="text-4xl font-bold text-primary animate-pulse">
-                          ₨3,250
+                          $125.50
                         </span>
                       </div>
 
@@ -226,14 +226,14 @@ export default function Index() {
                           <span className="text-xl font-medium">Referral Bonus</span>
                         </div>
                         <span className="text-4xl font-bold text-accent animate-pulse">
-                          ₨1,840
+                          $68.30
                         </span>
                       </div>
                     </div>
 
                     <Button className="w-full gradient-primary text-xl py-6 rounded-2xl">
                       <Gift className="mr-3 h-6 w-6" />
-                      Daily Bonus Claim کریں
+                      Claim Daily Bonus
                     </Button>
                   </div>
                 </Card>
@@ -258,8 +258,8 @@ export default function Index() {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="text-center space-y-4 group hover:scale-110 transition-all duration-300"
                 >
                   <div className="flex justify-center">
@@ -285,15 +285,15 @@ export default function Index() {
         <div className="container">
           <div className="text-center space-y-6 mb-20">
             <Badge variant="outline" className="px-6 py-2 text-lg">
-              خصوصیات
+              Features
             </Badge>
             <h2 className="text-4xl md:text-6xl font-bold">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                کیوں EarnClick؟
+                Why Choose EarnClick?
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Pakistan کا سب سے بہترین اور محفوظ platform جہاں آپ آسانی سے پیسے کما سکتے ہیں
+              The most trusted and secure platform where you can easily earn money online
             </p>
           </div>
 
@@ -331,7 +331,7 @@ export default function Index() {
           <div className="text-center space-y-6 mb-16">
             <h2 className="text-4xl md:text-5xl font-bold">Payment Methods</h2>
             <p className="text-xl text-muted-foreground">
-              آپ کی سہولت کے لیے مختلف payment options
+              Multiple convenient payment options for your withdrawals
             </p>
           </div>
 
@@ -363,11 +363,11 @@ export default function Index() {
         <div className="container">
           <div className="text-center space-y-6 mb-20">
             <Badge variant="outline" className="px-6 py-2 text-lg">
-              تبصرے
+              Testimonials
             </Badge>
             <h2 className="text-4xl md:text-6xl font-bold">
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Users کیا کہتے ہیں
+                What Our Users Say
               </span>
             </h2>
           </div>
@@ -409,10 +409,10 @@ export default function Index() {
         <div className="container">
           <div className="text-center space-y-8 max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-7xl font-bold">
-              آج ہی شروع کریں!
+              Start Earning Today!
             </h2>
             <p className="text-2xl opacity-90">
-              اب انتظار کیا؟ آج ہی join کریں اور پیسے کمانا شروع کریں
+              Why wait? Join now and start earning money immediately
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button
@@ -421,7 +421,7 @@ export default function Index() {
                 className="bg-white text-primary hover:bg-gray-100 text-xl px-12 py-8 rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
               >
                 <Link to="/register">
-                  Free Account بنائیں
+                  Create Free Account
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Link>
               </Button>
@@ -431,7 +431,7 @@ export default function Index() {
                 asChild
                 className="border-2 border-white text-white hover:bg-white hover:text-primary text-xl px-12 py-8 rounded-2xl hover:scale-105 transition-all duration-300"
               >
-                <Link to="/login">Account میں Login کریں</Link>
+                <Link to="/login">Login to Account</Link>
               </Button>
             </div>
           </div>
