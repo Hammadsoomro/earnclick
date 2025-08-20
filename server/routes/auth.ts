@@ -1,90 +1,90 @@
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import { User } from "../models/User";
 import { Referral } from "../models/Referral";
 
-// Check if database is connected
-const isDatabaseConnected = () => {
-  return mongoose.connection.readyState === 1;
+// Connect to MongoDB
+const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) return; // Already connected
+
+  try {
+    await mongoose.connect("mongodb+srv://Hammad:Soomro@cluster0.bqlcjok.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+    console.log("✅ MongoDB connected successfully");
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error);
+    process.exit(1);
+  }
 };
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-here";
+if (!process.env.JWT_SECRET) {
+  console.warn("⚠️  JWT_SECRET is not set in environment variables. Use a strong secret in production.");
+}
 
 // Register new user
 export const handleRegister: RequestHandler = async (req, res) => {
-  try {
-    console.log("Registration request received");
-    console.log("Request body:", req.body);
+  await connectDB();
 
+  try {
     const { email, password, name, referralCode } = req.body;
 
     // Validate required fields
     if (!email || !password || !name) {
-      console.log("Missing required fields");
-      return res.status(400).json({ error: "Missing required fields" });
+      return res.status(400).json({ error: "Missing required fields: email, password, name" });
     }
 
-    console.log("Processing registration for:", email);
-
-    // Always use mock registration since database is not properly configured
-    console.log("Using mock registration");
-
-    const mockUser = {
-      id: Math.random().toString(36).substr(2, 9),
-      email,
-      name,
-      totalEarnings: 1,
-      availableBalance: 1,
-      level: "Bronze",
-      referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
-      isAdmin: email === "Hammad@earnclick.com",
-    };
-
-    const token = jwt.sign({ userId: mockUser.id }, JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    console.log("Mock user created successfully");
-    return res.status(200).json({
-      user: mockUser,
-      token,
-    });
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      return res.status(400).json({ error: "User with this email already exists" });
     }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create new user
     const user = new User({
       email,
-      password,
+      password: hashedPassword,
       name,
     });
 
     await user.save();
+    console.log(`✅ User registered: ${user.email} (ID: ${user._id})`);
 
     // Handle referral if provided
     if (referralCode) {
       const referrer = await User.findOne({ referralCode });
       if (referrer) {
-        user.referredBy = referrer._id.toString();
+        // Set referral relationship
+        user.referredBy = referrer._id;
         await user.save();
 
-        // Create referral relationship
         const referral = new Referral({
-          referrerId: referrer._id.toString(),
-          referredUserId: user._id.toString(),
+          referrerId: referrer._id,
+          referredUserId: user._id,
         });
-        await referral.save();
 
-        // Give bonus to both users
-        referrer.availableBalance += 1; // Referrer bonus
-        user.availableBalance += 1; // Referred user bonus
-        await referrer.save();
-        await user.save();
+        // Bonus for both
+        referrer.availableBalance += 1;
+        user.availableBalance += 1;
+
+        await Promise.all([
+          referrer.save(),
+          user.save(),
+          referral.save(),
+        ]);
+
+        console.log(`👥 Referral applied: ${user.email} referred by ${referrer.email}`);
       }
     }
 
@@ -93,7 +93,8 @@ export const handleRegister: RequestHandler = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.json({
+    // Respond with user data (exclude password)
+    return res.status(201).json({
       user: {
         id: user._id,
         email: user.email,
@@ -102,78 +103,26 @@ export const handleRegister: RequestHandler = async (req, res) => {
         availableBalance: user.availableBalance,
         level: user.level,
         referralCode: user.referralCode,
+        isAdmin: user.isAdmin,
       },
       token,
     });
-  } catch (error) {
-    console.error("Registration error:", error);
-    res.status(500).json({ error: "Internal server error" });
+  } catch (error: any) {
+    console.error("❌ Registration error:", error.message || error);
+    return res.status(500).json({ error: "Internal server error during registration" });
   }
 };
 
 // Login user
 export const handleLogin: RequestHandler = async (req, res) => {
-  try {
-    console.log("Login request received");
-    console.log("Request body:", req.body);
+  await connectDB();
 
+  try {
     const { email, password } = req.body;
 
-    // Validate required fields
     if (!email || !password) {
-      console.log("Missing email or password");
       return res.status(400).json({ error: "Email and password are required" });
     }
-
-    console.log("Processing login for:", email);
-
-    // Always use mock login since database is not properly configured
-    console.log("Using mock login");
-
-    if (email === "Hammad@earnclick.com" && password === "Hammad1992@@") {
-      console.log("Admin login successful");
-
-      const mockAdminUser = {
-        id: "admin123",
-        email: "Hammad@earnclick.com",
-        name: "Hammad Admin",
-        totalEarnings: 10000,
-        availableBalance: 10000,
-        level: "Platinum",
-        referralCode: "ADMIN123",
-        isAdmin: true,
-      };
-
-      const token = jwt.sign({ userId: "admin123" }, JWT_SECRET, {
-        expiresIn: "7d",
-      });
-
-      return res.status(200).json({
-        user: mockAdminUser,
-        token,
-      });
-    }
-
-    // For any other user, create a mock user
-    const mockUser = {
-      id: Math.random().toString(36).substr(2, 9),
-      email,
-      name: email.split("@")[0],
-      totalEarnings: 50,
-      availableBalance: 25,
-      level: "Bronze",
-      referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
-      isAdmin: false,
-    };
-
-    const token = jwt.sign({ userId: mockUser.id }, JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    return res.status(200).json({
-      user: mockUser,
-      token,
-    });
 
     // Find user by email
     const user = await User.findOne({ email });
@@ -181,9 +130,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
-    // Check password
-    const isPasswordValid = await user.comparePassword(password);
-    if (!isPasswordValid) {
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
@@ -196,7 +145,9 @@ export const handleLogin: RequestHandler = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.json({
+    console.log(`👤 User logged in: ${user.email}`);
+
+    return res.status(200).json({
       user: {
         id: user._id,
         email: user.email,
@@ -205,12 +156,13 @@ export const handleLogin: RequestHandler = async (req, res) => {
         availableBalance: user.availableBalance,
         level: user.level,
         referralCode: user.referralCode,
+        isAdmin: user.isAdmin,
       },
       token,
     });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ error: "Internal server error" });
+  } catch (error: any) {
+    console.error("❌ Login error:", error.message || error);
+    return res.status(500).json({ error: "Internal server error during login" });
   }
 };
 
@@ -218,24 +170,30 @@ export const handleLogin: RequestHandler = async (req, res) => {
 export const authenticateToken: RequestHandler = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(" ")[1];
+    const token = authHeader && authHeader.split(" ")[1]; // Bearer TOKEN
 
     if (!token) {
       return res.status(401).json({ error: "Access token required" });
     }
 
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
-    const user = await User.findById(decoded.userId);
+    const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(401).json({ error: "Invalid token: User not found" });
     }
 
     req.user = user;
     next();
-  } catch (error) {
+  } catch (error: any) {
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ error: "Token expired" });
+    }
     console.error("Token verification error:", error);
-    res.status(401).json({ error: "Invalid token" });
+    return res.status(401).json({ error: "Unauthorized" });
   }
 };
 
