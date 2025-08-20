@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AdCashBanner, AdCashSquare } from "@/components/AdCashAd";
+import { MonetagBanner } from "@/components/MonetagAd";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -129,6 +131,15 @@ export default function Register() {
       <Header />
 
       <div className="container py-16">
+        {/* Ad Banners */}
+        <div className="mb-6">
+          <AdCashBanner className="rounded-lg overflow-hidden" />
+        </div>
+
+        <div className="mb-6">
+          <MonetagBanner className="rounded-lg overflow-hidden" />
+        </div>
+
         <div className="max-w-4xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* Left Side - Benefits */}
@@ -185,6 +196,11 @@ export default function Register() {
                   <div className="text-2xl font-bold text-primary">$100K+</div>
                   <div className="text-sm text-muted-foreground">Paid Out</div>
                 </div>
+              </div>
+
+              {/* Square Ad */}
+              <div className="flex justify-center mt-6">
+                <AdCashSquare className="rounded-lg overflow-hidden" />
               </div>
             </div>
 

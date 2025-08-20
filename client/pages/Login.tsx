@@ -3,6 +3,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AdCashBanner, AdCashSquare } from "@/components/AdCashAd";
+import { MonetagBanner, MonetagSquare } from "@/components/MonetagAd";
+import { BannerAd, SquareAd } from "@/components/AdSenseAd";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,6 +64,21 @@ export default function Login() {
       <Header />
 
       <div className="container py-16">
+        {/* AdSense Banner */}
+        <div className="mb-6">
+          <BannerAd className="rounded-lg overflow-hidden border" />
+        </div>
+
+        {/* AdCash Banner */}
+        <div className="mb-6">
+          <AdCashBanner className="rounded-lg overflow-hidden" />
+        </div>
+
+        {/* Monetag Banner */}
+        <div className="mb-6">
+          <MonetagBanner className="rounded-lg overflow-hidden" />
+        </div>
+
         <div className="max-w-md mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
@@ -242,6 +260,12 @@ export default function Login() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Square Ads */}
+          <div className="mt-8 flex justify-center space-x-4">
+            <SquareAd className="rounded-lg overflow-hidden border" />
+            <AdCashSquare className="rounded-lg overflow-hidden" />
+          </div>
 
           {/* Benefits */}
           <div className="mt-8 text-center">
