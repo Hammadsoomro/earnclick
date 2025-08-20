@@ -8,6 +8,7 @@ interface User {
   availableBalance: number;
   level: string;
   referralCode: string;
+  isAdmin: boolean;
 }
 
 interface AuthContextType {
@@ -38,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check for stored token on app start
     const storedToken = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
-    
+
     if (storedToken && storedUser) {
       setToken(storedToken);
       setUser(JSON.parse(storedUser));

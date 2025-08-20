@@ -13,6 +13,7 @@ import {
   Coins,
   LogOut,
   User,
+  Settings,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -34,6 +35,11 @@ export function Header() {
     { name: "Referrals", href: "/referrals", icon: Users },
     { name: "Withdraw", href: "/withdraw", icon: Wallet },
   ];
+
+  // Add admin link for admin users
+  if (user?.isAdmin) {
+    navigation.push({ name: "Admin", href: "/admin", icon: Settings });
+  }
 
   const isActive = (path: string) => location.pathname === path;
 

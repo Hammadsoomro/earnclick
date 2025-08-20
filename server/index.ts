@@ -4,6 +4,16 @@ import { connectDatabase } from "./database";
 import { handleDemo } from "./routes/demo";
 import { handleRegister, handleLogin, authenticateToken } from "./routes/auth";
 import { getAvailableAds, viewAd, getAdStats, createAd } from "./routes/ads";
+import { requireAdmin } from "./middleware/adminAuth";
+import {
+  getAdminStats,
+  getAllUsers,
+  getPendingWithdrawals,
+  updateWithdrawalStatus,
+  getAllAds,
+  updateAd,
+  deleteAd
+} from "./routes/admin";
 
 export function createServer() {
   const app = express();
@@ -32,8 +42,15 @@ export function createServer() {
   app.post("/api/ads/view", authenticateToken, viewAd);
   app.get("/api/ads/stats", authenticateToken, getAdStats);
 
-  // Admin routes
-  app.post("/api/admin/ads", createAd);
+  // Admin routes (require admin authentication)
+  app.get("/api/admin/stats", authenticateToken, requireAdmin, getAdminStats);
+  app.get("/api/admin/users", authenticateToken, requireAdmin, getAllUsers);
+  app.get("/api/admin/withdrawals/pending", authenticateToken, requireAdmin, getPendingWithdrawals);
+  app.put("/api/admin/withdrawals/:withdrawalId", authenticateToken, requireAdmin, updateWithdrawalStatus);
+  app.get("/api/admin/ads", authenticateToken, requireAdmin, getAllAds);
+  app.post("/api/admin/ads", authenticateToken, requireAdmin, createAd);
+  app.put("/api/admin/ads/:adId", authenticateToken, requireAdmin, updateAd);
+  app.delete("/api/admin/ads/:adId", authenticateToken, requireAdmin, deleteAd);
 
   return app;
 }

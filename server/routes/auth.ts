@@ -14,13 +14,30 @@ const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-here";
 // Register new user
 export const handleRegister: RequestHandler = async (req, res) => {
   try {
+    const { email, password, name, referralCode } = req.body;
+
+    // Mock user registration when database is not available
     if (!isDatabaseConnected()) {
-      return res.status(503).json({
-        error: "Database not available. Please try again later."
+      const mockUser = {
+        id: Math.random().toString(36).substr(2, 9),
+        email,
+        name,
+        totalEarnings: 1,
+        availableBalance: 1,
+        level: "Bronze",
+        referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
+        isAdmin: false,
+      };
+
+      const token = jwt.sign({ userId: mockUser.id }, JWT_SECRET, {
+        expiresIn: "7d",
+      });
+
+      return res.json({
+        user: mockUser,
+        token,
       });
     }
-
-    const { email, password, name, referralCode } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -85,13 +102,36 @@ export const handleRegister: RequestHandler = async (req, res) => {
 // Login user
 export const handleLogin: RequestHandler = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
+    // Mock admin login when database is not available
     if (!isDatabaseConnected()) {
+      if (email === "Hammad@earnclick.com" && password === "Hammad1992@@") {
+        const mockAdminUser = {
+          id: "admin123",
+          email: "Hammad@earnclick.com",
+          name: "Hammad Admin",
+          totalEarnings: 10000,
+          availableBalance: 10000,
+          level: "Platinum",
+          referralCode: "ADMIN123",
+          isAdmin: true,
+        };
+
+        const token = jwt.sign({ userId: "admin123" }, JWT_SECRET, {
+          expiresIn: "7d",
+        });
+
+        return res.json({
+          user: mockAdminUser,
+          token,
+        });
+      }
+
       return res.status(503).json({
         error: "Database not available. Please try again later."
       });
     }
-
-    const { email, password } = req.body;
 
     // Find user by email
     const user = await User.findOne({ email });
