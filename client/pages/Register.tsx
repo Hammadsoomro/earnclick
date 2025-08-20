@@ -37,6 +37,7 @@ export default function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,12 +52,18 @@ export default function Register() {
     e.preventDefault();
 
     // Prevent double submission
-    if (isLoading) return;
+    if (isLoading || isSubmitted) {
+      console.log("Submission already in progress");
+      return;
+    }
 
     setIsLoading(true);
+    setIsSubmitted(true);
     setError("");
 
     try {
+      console.log("Starting form validation");
+
       if (formData.password !== formData.confirmPassword) {
         setError("Passwords do not match");
         return;
@@ -67,6 +74,8 @@ export default function Register() {
         return;
       }
 
+      console.log("Form validation passed, calling register");
+
       const success = await register({
         name: formData.name,
         email: formData.email,
@@ -74,14 +83,19 @@ export default function Register() {
         referralCode: formData.referralCode,
       });
 
+      console.log("Register result:", success);
+
       if (success) {
+        console.log("Registration successful, navigating to dashboard");
         navigate("/dashboard", { replace: true });
       } else {
         setError("Registration failed. Please try again.");
+        setIsSubmitted(false); // Allow retry
       }
     } catch (error) {
       console.error("Registration error:", error);
       setError("Registration failed. Please try again.");
+      setIsSubmitted(false); // Allow retry
     } finally {
       setIsLoading(false);
     }
@@ -386,7 +400,7 @@ export default function Register() {
                   <Button
                     type="submit"
                     className="w-full gradient-primary text-lg py-6"
-                    disabled={!formData.agreeToTerms || isLoading}
+                    disabled={!formData.agreeToTerms || isLoading || isSubmitted}
                   >
                     {isLoading ? "Creating Account..." : "Create Account & Get $1 Bonus"}
                     <ArrowRight className="ml-2 h-5 w-5" />

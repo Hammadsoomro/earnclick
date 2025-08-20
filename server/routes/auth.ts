@@ -14,15 +14,23 @@ const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-here";
 // Register new user
 export const handleRegister: RequestHandler = async (req, res) => {
   try {
+    console.log("Registration request received");
+    console.log("Request body:", req.body);
+
     const { email, password, name, referralCode } = req.body;
 
     // Validate required fields
     if (!email || !password || !name) {
+      console.log("Missing required fields");
       return res.status(400).json({ error: "Missing required fields" });
     }
 
+    console.log("Processing registration for:", email);
+
     // Mock user registration when database is not available
     if (!isDatabaseConnected()) {
+      console.log("Database not connected, using mock registration");
+
       const mockUser = {
         id: Math.random().toString(36).substr(2, 9),
         email,
@@ -38,7 +46,8 @@ export const handleRegister: RequestHandler = async (req, res) => {
         expiresIn: "7d",
       });
 
-      return res.json({
+      console.log("Mock user created successfully");
+      return res.status(200).json({
         user: mockUser,
         token,
       });
@@ -107,16 +116,26 @@ export const handleRegister: RequestHandler = async (req, res) => {
 // Login user
 export const handleLogin: RequestHandler = async (req, res) => {
   try {
+    console.log("Login request received");
+    console.log("Request body:", req.body);
+
     const { email, password } = req.body;
 
     // Validate required fields
     if (!email || !password) {
+      console.log("Missing email or password");
       return res.status(400).json({ error: "Email and password are required" });
     }
 
+    console.log("Processing login for:", email);
+
     // Mock admin login when database is not available
     if (!isDatabaseConnected()) {
+      console.log("Database not connected, using mock login");
+
       if (email === "Hammad@earnclick.com" && password === "Hammad1992@@") {
+        console.log("Admin login successful");
+
         const mockAdminUser = {
           id: "admin123",
           email: "Hammad@earnclick.com",
@@ -132,12 +151,13 @@ export const handleLogin: RequestHandler = async (req, res) => {
           expiresIn: "7d",
         });
 
-        return res.json({
+        return res.status(200).json({
           user: mockAdminUser,
           token,
         });
       }
 
+      console.log("Invalid credentials for:", email);
       return res.status(400).json({
         error: "Invalid credentials"
       });

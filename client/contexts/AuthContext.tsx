@@ -49,29 +49,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const requestBody = JSON.stringify({ email, password });
+      console.log("Starting login for:", email);
 
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: requestBody,
+        body: JSON.stringify({ email, password }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Login failed:", errorText);
+      console.log("Login response status:", response.status);
+
+      // Clone the response to avoid "body already read" error
+      const responseClone = response.clone();
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error("Failed to parse JSON, trying text:", jsonError);
+        const text = await responseClone.text();
+        console.error("Response text:", text);
         return false;
       }
 
-      const data = await response.json();
-
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      return true;
+      if (response.ok && data.user && data.token) {
+        setUser(data.user);
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        return true;
+      } else {
+        console.error("Login failed:", data.error || "Unknown error");
+        return false;
+      }
     } catch (error) {
       console.error("Login error:", error);
       return false;
@@ -80,29 +92,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (registerData: RegisterData): Promise<boolean> => {
     try {
-      const requestBody = JSON.stringify(registerData);
+      console.log("Starting registration with data:", registerData);
 
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: requestBody,
+        body: JSON.stringify(registerData),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Registration failed:", errorText);
+      console.log("Response status:", response.status);
+
+      // Clone the response to avoid "body already read" error
+      const responseClone = response.clone();
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (jsonError) {
+        console.error("Failed to parse JSON, trying text:", jsonError);
+        const text = await responseClone.text();
+        console.error("Response text:", text);
         return false;
       }
 
-      const data = await response.json();
-
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      return true;
+      if (response.ok && data.user && data.token) {
+        setUser(data.user);
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        return true;
+      } else {
+        console.error("Registration failed:", data.error || "Unknown error");
+        return false;
+      }
     } catch (error) {
       console.error("Registration error:", error);
       return false;
