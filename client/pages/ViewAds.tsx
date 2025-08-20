@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { BannerAd, SquareAd } from "@/components/AdSenseAd";
 import { MathCaptcha } from "@/components/MathCaptcha";
 import { MonetagBanner, MonetagSquare } from "@/components/MonetagAd";
+import { AdCashBanner, AdCashSquare } from "@/components/AdCashAd";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -63,11 +64,11 @@ export default function ViewAds() {
       duration: 10,
       difficulty: "Easy",
       rating: 4.9,
-      advertiser: "Adsterra",
+      advertiser: "Premium Ads",
       image: "/api/placeholder/300/200",
       type: "Direct Link",
       featured: true,
-      url: "https://www.profitableratecpm.com/d2j586tys?key=89f7c2c680b39d6d0bb2f4e12f5f8a24",
+      url: "https://otieu.com/4/9614329",
     },
     {
       id: 2,
@@ -78,11 +79,11 @@ export default function ViewAds() {
       duration: 10,
       difficulty: "Easy",
       rating: 4.8,
-      advertiser: "Adsterra",
+      advertiser: "Gaming Network",
       image: "/api/placeholder/300/200",
       type: "Direct Link",
       featured: true,
-      url: "https://www.profitableratecpm.com/hftzqqd1t?key=db2c37affb6056fc6e81c50984a5c9f0",
+      url: "https://otieu.com/4/9589039",
     },
     {
       id: 3,
@@ -93,11 +94,11 @@ export default function ViewAds() {
       duration: 15,
       difficulty: "Medium",
       rating: 4.7,
-      advertiser: "Adsterra",
+      advertiser: "Finance Plus",
       image: "/api/placeholder/300/200",
       type: "Direct Link",
       featured: true,
-      url: "https://www.profitableratecpm.com/s8d9m4rh9?key=ab6e0251610d024fabee48e7426b0f4f",
+      url: "https://otieu.com/4/9726822",
     },
     {
       id: 4,
@@ -108,11 +109,11 @@ export default function ViewAds() {
       duration: 15,
       difficulty: "Medium",
       rating: 4.9,
-      advertiser: "Adsterra",
+      advertiser: "Tech Solutions",
       image: "/api/placeholder/300/200",
       type: "Direct Link",
       featured: true,
-      url: "https://www.profitableratecpm.com/wgytz0b63m?key=9f277b8a79cf1893dec2ec9e4e268769",
+      url: "https://otieu.com/4/9614329",
     },
     {
       id: 5,
@@ -241,6 +242,11 @@ export default function ViewAds() {
           <MonetagBanner className="rounded-lg overflow-hidden" />
         </div>
 
+        {/* AdCash Banner */}
+        <div className="mb-6">
+          <AdCashBanner className="rounded-lg overflow-hidden" />
+        </div>
+
         {/* Header Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">View Ads & Earn Money</h1>
@@ -331,6 +337,11 @@ export default function ViewAds() {
         {/* Monetag Square Ad */}
         <div className="flex justify-center mb-8">
           <MonetagSquare className="rounded-lg overflow-hidden" />
+        </div>
+
+        {/* AdCash Square Ad */}
+        <div className="flex justify-center mb-8">
+          <AdCashSquare className="rounded-lg overflow-hidden" />
         </div>
 
         {/* Available Ads */}

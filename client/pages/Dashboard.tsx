@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BannerAd, SquareAd } from "@/components/AdSenseAd";
+import { AdCashBanner, AdCashSquare } from "@/components/AdCashAd";
 import {
   Card,
   CardContent,
@@ -144,6 +145,11 @@ export default function Dashboard() {
         {/* AdSense Banner */}
         <div className="mb-6">
           <BannerAd className="rounded-lg overflow-hidden border" />
+        </div>
+
+        {/* AdCash Banner */}
+        <div className="mb-6">
+          <AdCashBanner className="rounded-lg overflow-hidden" />
         </div>
 
         {/* Welcome Section */}
@@ -371,6 +377,11 @@ export default function Dashboard() {
             {/* AdSense Square Ad */}
             <div className="flex justify-center">
               <SquareAd className="rounded-lg overflow-hidden border" />
+            </div>
+
+            {/* AdCash Square Ad */}
+            <div className="flex justify-center">
+              <AdCashSquare className="rounded-lg overflow-hidden" />
             </div>
 
             {/* Earnings Summary */}

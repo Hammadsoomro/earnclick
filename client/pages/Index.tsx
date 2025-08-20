@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AdCashBanner } from "@/components/AdCashAd";
 import {
   Eye,
   DollarSign,
@@ -277,6 +278,13 @@ export default function Index() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* AdCash Banner */}
+      <section className="py-8">
+        <div className="container">
+          <AdCashBanner className="rounded-lg overflow-hidden" />
         </div>
       </section>
 
