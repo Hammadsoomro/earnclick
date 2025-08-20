@@ -10,9 +10,13 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   build: {
-    outDir: "dist/spa",
+    outDir: "dist/spa", // Client output
   },
-  plugins: [react(), expressPlugin()],
+  plugins: [
+    react(),
+    // Only add Express in dev mode
+    mode === "development" ? expressPlugin() : undefined
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -24,11 +28,9 @@ export default defineConfig(({ mode }) => ({
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
+    apply: "serve", // Only during development
     configureServer(server) {
       const app = createServer();
-
-      // Add Express app as middleware to Vite dev server
       server.middlewares.use(app);
     },
   };
