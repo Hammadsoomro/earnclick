@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BannerAd, SquareAd } from "@/components/AdSenseAd";
+import { MathCaptcha } from "@/components/MathCaptcha";
+import { MonetagBanner, MonetagSquare } from "@/components/MonetagAd";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -36,6 +38,7 @@ import {
 export default function ViewAds() {
   const [selectedAd, setSelectedAd] = useState<any>(null);
   const [isViewingAd, setIsViewingAd] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [earnedToday, setEarnedToday] = useState(12.5);
   const [adsViewedToday, setAdsViewedToday] = useState(24);
@@ -144,7 +147,7 @@ export default function ViewAds() {
   const handleViewAd = (ad: any) => {
     if (ad.type === "Direct Link" && ad.url) {
       // For direct link ads, open URL immediately and credit earnings
-      window.open(ad.url, "_blank", "noopener,noreferrer");
+      window.open(ad.url, '_blank', 'noopener,noreferrer');
       // Credit the user immediately for direct link clicks
       setEarnedToday(earnedToday + ad.payout);
       setAdsViewedToday(adsViewedToday + 1);
@@ -165,14 +168,35 @@ export default function ViewAds() {
         setCountdown(countdown - 1);
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (isViewingAd && countdown === 0) {
-      // Ad viewing completed
-      setEarnedToday(earnedToday + selectedAd.payout);
-      setAdsViewedToday(adsViewedToday + 1);
-      setIsViewingAd(false);
-      setSelectedAd(null);
+    } else if (isViewingAd && countdown === 0 && !showCaptcha) {
+      // Show captcha after timer ends
+      setShowCaptcha(true);
     }
-  }, [isViewingAd, countdown]);
+  }, [isViewingAd, countdown, showCaptcha]);
+
+  const handleCaptchaSolved = () => {
+    // Award user the earnings
+    setEarnedToday(earnedToday + selectedAd.payout);
+    setAdsViewedToday(adsViewedToday + 1);
+
+    // Reset states
+    setIsViewingAd(false);
+    setShowCaptcha(false);
+    setSelectedAd(null);
+
+    // Show success message
+    alert(`Congratulations! You earned $${selectedAd.payout}!`);
+  };
+
+  const handleCaptchaFailed = () => {
+    // Reset states without awarding
+    setIsViewingAd(false);
+    setShowCaptcha(false);
+    setSelectedAd(null);
+
+    // Show failure message
+    alert("Captcha failed! Please try again with another ad.");
+  };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -210,6 +234,11 @@ export default function ViewAds() {
         {/* AdSense Banner */}
         <div className="mb-6">
           <BannerAd className="rounded-lg overflow-hidden border" />
+        </div>
+
+        {/* Monetag Banner */}
+        <div className="mb-6">
+          <MonetagBanner className="rounded-lg overflow-hidden" />
         </div>
 
         {/* Header Section */}
@@ -299,6 +328,11 @@ export default function ViewAds() {
           <SquareAd className="rounded-lg overflow-hidden border" />
         </div>
 
+        {/* Monetag Square Ad */}
+        <div className="flex justify-center mb-8">
+          <MonetagSquare className="rounded-lg overflow-hidden" />
+        </div>
+
         {/* Available Ads */}
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold">Available Ads</h2>
@@ -318,10 +352,7 @@ export default function ViewAds() {
                         Featured
                       </Badge>
                       {ad.advertiser === "Adsterra" && (
-                        <Badge
-                          variant="secondary"
-                          className="bg-orange-500/10 text-orange-600 block"
-                        >
+                        <Badge variant="secondary" className="bg-orange-500/10 text-orange-600 block">
                           Adsterra Premium
                         </Badge>
                       )}
@@ -478,13 +509,20 @@ export default function ViewAds() {
               </div>
             </div>
 
-            {countdown === 0 && (
-              <div className="text-center space-y-2">
+            {countdown === 0 && !showCaptcha && (
+              <div className="text-center space-y-4">
                 <CheckCircle className="h-12 w-12 text-green-600 mx-auto" />
                 <p className="text-lg font-semibold text-green-600">
-                  Congratulations! You earned ${selectedAd?.payout}
+                  Time completed! Now solve the captcha to claim your earning.
                 </p>
               </div>
+            )}
+
+            {showCaptcha && (
+              <MathCaptcha
+                onSolved={handleCaptchaSolved}
+                onFailed={handleCaptchaFailed}
+              />
             )}
           </div>
         </DialogContent>

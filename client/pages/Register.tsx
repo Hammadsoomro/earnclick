@@ -119,7 +119,7 @@ export default function Register() {
                   </div>
                 </div>
                 <Badge className="gradient-primary text-primary-foreground border-0 mb-4">
-                  🎉 Limited Time: $5 Welcome Bonus
+                  🎉 Welcome Bonus: $1 Free
                 </Badge>
               </div>
 
@@ -303,7 +303,7 @@ export default function Register() {
                       />
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Get extra $2 bonus when you use a referral code
+                      Get extra $1 bonus when you use a referral code
                     </p>
                   </div>
 
@@ -375,7 +375,7 @@ export default function Register() {
                     className="w-full gradient-primary text-lg py-6"
                     disabled={!formData.agreeToTerms || isLoading}
                   >
-                    {isLoading ? "Creating Account..." : "Create Account & Get $5 Bonus"}
+                    {isLoading ? "Creating Account..." : "Create Account & Get $1 Bonus"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>

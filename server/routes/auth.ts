@@ -16,7 +16,7 @@ export const handleRegister: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
       return res.status(503).json({
-        error: "Database not available. Please try again later.",
+        error: "Database not available. Please try again later."
       });
     }
 
@@ -52,8 +52,8 @@ export const handleRegister: RequestHandler = async (req, res) => {
         await referral.save();
 
         // Give bonus to both users
-        referrer.availableBalance += 2; // Referrer bonus
-        user.availableBalance += 5; // Referred user bonus
+        referrer.availableBalance += 1; // Referrer bonus
+        user.availableBalance += 1; // Referred user bonus
         await referrer.save();
         await user.save();
       }
@@ -87,7 +87,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
       return res.status(503).json({
-        error: "Database not available. Please try again later.",
+        error: "Database not available. Please try again later."
       });
     }
 

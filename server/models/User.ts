@@ -14,6 +14,7 @@ export interface IUser extends Document {
   referredBy?: string;
   isActive: boolean;
   isVerified: boolean;
+  isAdmin: boolean;
   lastLogin?: Date;
   adsViewedToday: number;
   lastAdViewReset: Date;
@@ -55,7 +56,7 @@ const UserSchema = new Schema<IUser>(
     },
     availableBalance: {
       type: Number,
-      default: 5, // Welcome bonus
+      default: 1, // Welcome bonus reduced
       min: 0,
     },
     pendingEarnings: {
@@ -77,6 +78,10 @@ const UserSchema = new Schema<IUser>(
       default: true,
     },
     isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
       type: Boolean,
       default: false,
     },
