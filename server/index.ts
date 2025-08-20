@@ -12,7 +12,7 @@ import {
   updateWithdrawalStatus,
   getAllAds,
   updateAd,
-  deleteAd
+  deleteAd,
 } from "./routes/admin";
 
 export function createServer() {
@@ -23,14 +23,14 @@ export function createServer() {
 
   // Middleware
   app.use(cors());
-  app.use(express.json({ limit: '10mb' }));
-  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
   // Debug middleware to log requests
   app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
     if (req.body && Object.keys(req.body).length > 0) {
-      console.log('Request body keys:', Object.keys(req.body));
+      console.log("Request body keys:", Object.keys(req.body));
     }
     next();
   });
@@ -54,8 +54,18 @@ export function createServer() {
   // Admin routes (require admin authentication)
   app.get("/api/admin/stats", authenticateToken, requireAdmin, getAdminStats);
   app.get("/api/admin/users", authenticateToken, requireAdmin, getAllUsers);
-  app.get("/api/admin/withdrawals/pending", authenticateToken, requireAdmin, getPendingWithdrawals);
-  app.put("/api/admin/withdrawals/:withdrawalId", authenticateToken, requireAdmin, updateWithdrawalStatus);
+  app.get(
+    "/api/admin/withdrawals/pending",
+    authenticateToken,
+    requireAdmin,
+    getPendingWithdrawals,
+  );
+  app.put(
+    "/api/admin/withdrawals/:withdrawalId",
+    authenticateToken,
+    requireAdmin,
+    updateWithdrawalStatus,
+  );
   app.get("/api/admin/ads", authenticateToken, requireAdmin, getAllAds);
   app.post("/api/admin/ads", authenticateToken, requireAdmin, createAd);
   app.put("/api/admin/ads/:adId", authenticateToken, requireAdmin, updateAd);

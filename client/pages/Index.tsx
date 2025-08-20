@@ -35,59 +35,81 @@ export default function Index() {
     {
       icon: Eye,
       title: "Easy Ad Viewing",
-      description: "Simply click on ads and earn money instantly. Very easy and secure.",
+      description:
+        "Simply click on ads and earn money instantly. Very easy and secure.",
       color: "text-blue-500",
       gradient: "from-blue-500 to-cyan-500",
     },
     {
       icon: Users,
       title: "Referral System",
-      description: "Invite friends and earn 25% commission from their earnings forever.",
+      description:
+        "Invite friends and earn 25% commission from their earnings forever.",
       color: "text-purple-500",
       gradient: "from-purple-500 to-pink-500",
     },
     {
       icon: DollarSign,
       title: "Instant Payments",
-      description: "Fast withdrawals through PayPal, Bank Transfer, and Crypto. No delays.",
+      description:
+        "Fast withdrawals through PayPal, Bank Transfer, and Crypto. No delays.",
       color: "text-green-500",
       gradient: "from-green-500 to-emerald-500",
     },
     {
       icon: Shield,
       title: "100% Secure",
-      description: "Your data and payments are completely secure. Zero risk guaranteed.",
+      description:
+        "Your data and payments are completely secure. Zero risk guaranteed.",
       color: "text-red-500",
       gradient: "from-red-500 to-orange-500",
     },
     {
       icon: Clock,
       title: "Work 24/7",
-      description: "View ads and earn money anytime, day or night. Always available.",
+      description:
+        "View ads and earn money anytime, day or night. Always available.",
       color: "text-orange-500",
       gradient: "from-orange-500 to-yellow-500",
     },
     {
       icon: TrendingUp,
       title: "Growing Earnings",
-      description: "Increase your income with daily bonuses and premium ad rewards.",
+      description:
+        "Increase your income with daily bonuses and premium ad rewards.",
       color: "text-cyan-500",
       gradient: "from-cyan-500 to-blue-500",
     },
   ];
 
   const stats = [
-    { label: "Active Users", value: "50K+", icon: Users, color: "text-blue-500" },
+    {
+      label: "Active Users",
+      value: "50K+",
+      icon: Users,
+      color: "text-blue-500",
+    },
     { label: "Ads Viewed", value: "2M+", icon: Eye, color: "text-purple-500" },
-    { label: "Paid Out", value: "$100K+", icon: DollarSign, color: "text-green-500" },
-    { label: "Success Rate", value: "99.9%", icon: TrendingUp, color: "text-orange-500" },
+    {
+      label: "Paid Out",
+      value: "$100K+",
+      icon: DollarSign,
+      color: "text-green-500",
+    },
+    {
+      label: "Success Rate",
+      value: "99.9%",
+      icon: TrendingUp,
+      color: "text-orange-500",
+    },
   ];
 
   const testimonials = [
     {
       name: "Sarah Johnson",
       role: "Student",
-      content: "Amazing platform! I've earned over $500 in just 6 months. Perfect for extra income.",
+      content:
+        "Amazing platform! I've earned over $500 in just 6 months. Perfect for extra income.",
       rating: 5,
       avatar: "👩‍🎓",
       earnings: "$500",
@@ -95,7 +117,8 @@ export default function Index() {
     {
       name: "Mike Chen",
       role: "Freelancer",
-      content: "Best way to earn money from home. The referral system is incredible!",
+      content:
+        "Best way to earn money from home. The referral system is incredible!",
       rating: 5,
       avatar: "👨‍💻",
       earnings: "$350",
@@ -103,7 +126,8 @@ export default function Index() {
     {
       name: "Lisa Rodriguez",
       role: "Teacher",
-      content: "I easily earn $50-80 daily. Payments are always on time and reliable.",
+      content:
+        "I easily earn $50-80 daily. Payments are always on time and reliable.",
       rating: 5,
       avatar: "👩‍🏫",
       earnings: "$750",
@@ -145,8 +169,15 @@ export default function Index() {
                   <span className="text-foreground">The Easy Way</span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-muted-foreground max-w-lg leading-relaxed">
-                  Simply view ads and earn <span className="font-bold text-primary">thousands daily</span>.
-                  Refer friends and get <span className="font-bold text-accent">lifetime commission</span>.
+                  Simply view ads and earn{" "}
+                  <span className="font-bold text-primary">
+                    thousands daily
+                  </span>
+                  . Refer friends and get{" "}
+                  <span className="font-bold text-accent">
+                    lifetime commission
+                  </span>
+                  .
                 </p>
               </div>
 
@@ -197,14 +228,18 @@ export default function Index() {
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
                       <h3 className="text-2xl font-bold">Today's Earnings</h3>
-                      <Badge variant="secondary" className="animate-pulse">Live</Badge>
+                      <Badge variant="secondary" className="animate-pulse">
+                        Live
+                      </Badge>
                     </div>
 
                     <div className="space-y-4">
                       <div className="flex items-center justify-between p-6 bg-success/10 rounded-2xl">
                         <div className="flex items-center space-x-4">
                           <Eye className="h-8 w-8 text-success" />
-                          <span className="text-xl font-medium">Ads Viewed</span>
+                          <span className="text-xl font-medium">
+                            Ads Viewed
+                          </span>
                         </div>
                         <span className="text-4xl font-bold text-success animate-pulse">
                           42
@@ -214,7 +249,9 @@ export default function Index() {
                       <div className="flex items-center justify-between p-6 bg-primary/10 rounded-2xl">
                         <div className="flex items-center space-x-4">
                           <DollarSign className="h-8 w-8 text-primary" />
-                          <span className="text-xl font-medium">Today's Earning</span>
+                          <span className="text-xl font-medium">
+                            Today's Earning
+                          </span>
                         </div>
                         <span className="text-4xl font-bold text-primary animate-pulse">
                           $125.50
@@ -224,7 +261,9 @@ export default function Index() {
                       <div className="flex items-center justify-between p-6 bg-accent/10 rounded-2xl">
                         <div className="flex items-center space-x-4">
                           <Users className="h-8 w-8 text-accent" />
-                          <span className="text-xl font-medium">Referral Bonus</span>
+                          <span className="text-xl font-medium">
+                            Referral Bonus
+                          </span>
                         </div>
                         <span className="text-4xl font-bold text-accent animate-pulse">
                           $68.30
@@ -264,7 +303,9 @@ export default function Index() {
                   className="text-center space-y-4 group hover:scale-110 transition-all duration-300"
                 >
                   <div className="flex justify-center">
-                    <div className={`flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r ${stat.color} bg-opacity-10`}>
+                    <div
+                      className={`flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r ${stat.color} bg-opacity-10`}
+                    >
                       <Icon className={`h-10 w-10 ${stat.color}`} />
                     </div>
                   </div>
@@ -301,7 +342,8 @@ export default function Index() {
               </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              The most trusted and secure platform where you can easily earn money online
+              The most trusted and secure platform where you can easily earn
+              money online
             </p>
           </div>
 
@@ -315,11 +357,15 @@ export default function Index() {
                 >
                   <CardContent className="p-8">
                     <div className="space-y-6">
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-all duration-300`}>
+                      <div
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-all duration-300`}
+                      >
                         <Icon className="h-8 w-8 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
+                        <h3 className="text-2xl font-bold mb-3">
+                          {feature.title}
+                        </h3>
                         <p className="text-muted-foreground text-lg leading-relaxed">
                           {feature.description}
                         </p>
@@ -382,7 +428,10 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="text-center hover:shadow-2xl transition-all duration-500 hover:scale-105">
+              <Card
+                key={index}
+                className="text-center hover:shadow-2xl transition-all duration-500 hover:scale-105"
+              >
                 <CardContent className="p-8">
                   <div className="space-y-6">
                     <div className="text-6xl">{testimonial.avatar}</div>
@@ -398,8 +447,12 @@ export default function Index() {
                       "{testimonial.content}"
                     </blockquote>
                     <div>
-                      <div className="font-bold text-xl">{testimonial.name}</div>
-                      <div className="text-muted-foreground">{testimonial.role}</div>
+                      <div className="font-bold text-xl">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-muted-foreground">
+                        {testimonial.role}
+                      </div>
                       <Badge className="mt-2 gradient-primary">
                         Earned: {testimonial.earnings}
                       </Badge>

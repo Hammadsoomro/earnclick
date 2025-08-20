@@ -416,9 +416,13 @@ export default function Register() {
                   <Button
                     type="submit"
                     className="w-full gradient-primary text-lg py-6"
-                    disabled={!formData.agreeToTerms || isLoading || isSubmitted}
+                    disabled={
+                      !formData.agreeToTerms || isLoading || isSubmitted
+                    }
                   >
-                    {isLoading ? "Creating Account..." : "Create Account & Get $1 Bonus"}
+                    {isLoading
+                      ? "Creating Account..."
+                      : "Create Account & Get $1 Bonus"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </form>

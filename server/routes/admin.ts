@@ -15,8 +15,8 @@ const isDatabaseConnected = () => {
 export const getAdminStats: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
@@ -24,16 +24,18 @@ export const getAdminStats: RequestHandler = async (req, res) => {
     const totalAds = await Ad.countDocuments();
     const totalAdViews = await AdView.countDocuments();
     const totalWithdrawals = await Withdrawal.countDocuments();
-    const pendingWithdrawals = await Withdrawal.countDocuments({ status: "pending" });
-    
+    const pendingWithdrawals = await Withdrawal.countDocuments({
+      status: "pending",
+    });
+
     // Calculate total earnings and payouts
     const totalEarnings = await AdView.aggregate([
-      { $group: { _id: null, total: { $sum: "$payout" } } }
+      { $group: { _id: null, total: { $sum: "$payout" } } },
     ]);
-    
+
     const totalPayouts = await Withdrawal.aggregate([
       { $match: { status: "completed" } },
-      { $group: { _id: null, total: { $sum: "$amount" } } }
+      { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
 
     res.json({
@@ -55,8 +57,8 @@ export const getAdminStats: RequestHandler = async (req, res) => {
 export const getAllUsers: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
@@ -65,7 +67,7 @@ export const getAllUsers: RequestHandler = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const users = await User.find()
-      .select('-password')
+      .select("-password")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
@@ -77,8 +79,8 @@ export const getAllUsers: RequestHandler = async (req, res) => {
       pagination: {
         current: page,
         total: Math.ceil(total / limit),
-        totalItems: total
-      }
+        totalItems: total,
+      },
     });
   } catch (error) {
     console.error("Get users error:", error);
@@ -90,13 +92,13 @@ export const getAllUsers: RequestHandler = async (req, res) => {
 export const getPendingWithdrawals: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
     const withdrawals = await Withdrawal.find({ status: "pending" })
-      .populate('userId', 'name email')
+      .populate("userId", "name email")
       .sort({ requestedAt: -1 });
 
     res.json(withdrawals);
@@ -110,8 +112,8 @@ export const getPendingWithdrawals: RequestHandler = async (req, res) => {
 export const updateWithdrawalStatus: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
@@ -148,8 +150,8 @@ export const updateWithdrawalStatus: RequestHandler = async (req, res) => {
 export const createAd: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
@@ -166,14 +168,14 @@ export const createAd: RequestHandler = async (req, res) => {
 export const updateAd: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
     const { adId } = req.params;
     const ad = await Ad.findByIdAndUpdate(adId, req.body, { new: true });
-    
+
     if (!ad) {
       return res.status(404).json({ error: "Ad not found" });
     }
@@ -189,8 +191,8 @@ export const updateAd: RequestHandler = async (req, res) => {
 export const deleteAd: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 
@@ -207,8 +209,8 @@ export const deleteAd: RequestHandler = async (req, res) => {
 export const getAllAds: RequestHandler = async (req, res) => {
   try {
     if (!isDatabaseConnected()) {
-      return res.status(503).json({ 
-        error: "Database not available" 
+      return res.status(503).json({
+        error: "Database not available",
       });
     }
 

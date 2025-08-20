@@ -7,50 +7,48 @@ interface MonetagAdProps {
   className?: string;
 }
 
-export function MonetagAd({ 
-  zoneId, 
-  width = 728, 
-  height = 90, 
-  className = "" 
+export function MonetagAd({
+  zoneId,
+  width = 728,
+  height = 90,
+  className = "",
 }: MonetagAdProps) {
   useEffect(() => {
     // Load Monetag script if not already loaded
     if (!document.querySelector('script[src*="monetag.com"]')) {
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
+      const script = document.createElement("script");
+      script.type = "text/javascript";
       script.async = true;
-      script.src = '//thubanoa.com/1?z=7990707';
+      script.src = "//thubanoa.com/1?z=7990707";
       document.head.appendChild(script);
     }
 
     // Initialize ad if Monetag is loaded
     if (window.monetag) {
-      window.monetag.cmd.push(function() {
+      window.monetag.cmd.push(function () {
         window.monetag.display(zoneId);
       });
     }
   }, [zoneId]);
 
   return (
-    <div 
+    <div
       className={`monetag-ad ${className}`}
-      style={{ 
-        width: `${width}px`, 
+      style={{
+        width: `${width}px`,
         height: `${height}px`,
-        margin: '10px auto',
-        textAlign: 'center',
-        background: '#f5f5f5',
-        border: '1px solid #ddd',
-        borderRadius: '8px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        margin: "10px auto",
+        textAlign: "center",
+        background: "#f5f5f5",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
       id={`monetag-${zoneId}`}
     >
-      <div style={{ color: '#666', fontSize: '12px' }}>
-        Advertisement Space
-      </div>
+      <div style={{ color: "#666", fontSize: "12px" }}>Advertisement Space</div>
     </div>
   );
 }
@@ -58,12 +56,7 @@ export function MonetagAd({
 // Pre-configured banner components
 export function MonetagBanner({ className = "" }: { className?: string }) {
   return (
-    <MonetagAd
-      zoneId="7990707"
-      width={728}
-      height={90}
-      className={className}
-    />
+    <MonetagAd zoneId="7990707" width={728} height={90} className={className} />
   );
 }
 

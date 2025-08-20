@@ -158,7 +158,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
     const mockUser = {
       id: Math.random().toString(36).substr(2, 9),
       email,
-      name: email.split('@')[0],
+      name: email.split("@")[0],
       totalEarnings: 50,
       availableBalance: 25,
       level: "Bronze",

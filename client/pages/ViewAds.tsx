@@ -148,7 +148,7 @@ export default function ViewAds() {
   const handleViewAd = (ad: any) => {
     if (ad.type === "Direct Link" && ad.url) {
       // For direct link ads, open URL immediately and credit earnings
-      window.open(ad.url, '_blank', 'noopener,noreferrer');
+      window.open(ad.url, "_blank", "noopener,noreferrer");
       // Credit the user immediately for direct link clicks
       setEarnedToday(earnedToday + ad.payout);
       setAdsViewedToday(adsViewedToday + 1);
@@ -363,7 +363,10 @@ export default function ViewAds() {
                         Featured
                       </Badge>
                       {ad.advertiser === "Adsterra" && (
-                        <Badge variant="secondary" className="bg-orange-500/10 text-orange-600 block">
+                        <Badge
+                          variant="secondary"
+                          className="bg-orange-500/10 text-orange-600 block"
+                        >
                           Adsterra Premium
                         </Badge>
                       )}

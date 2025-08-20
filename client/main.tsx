@@ -45,37 +45,61 @@ const App = () => (
             <Route path="/register" element={<Register />} />
 
             {/* Protected Routes */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin" element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } />
-            <Route path="/ads" element={
-              <ProtectedRoute>
-                <ViewAds />
-              </ProtectedRoute>
-            } />
-            <Route path="/referrals" element={
-              <ProtectedRoute>
-                <Referrals />
-              </ProtectedRoute>
-            } />
-            <Route path="/withdraw" element={
-              <ProtectedRoute>
-                <Withdraw />
-              </ProtectedRoute>
-            } />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/ads"
+              element={
+                <ProtectedRoute>
+                  <ViewAds />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/referrals"
+              element={
+                <ProtectedRoute>
+                  <Referrals />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/withdraw"
+              element={
+                <ProtectedRoute>
+                  <Withdraw />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/faq" element={<ComingSoon title="FAQ" />} />
             <Route path="/help" element={<ComingSoon title="Help Center" />} />
-            <Route path="/contact" element={<ComingSoon title="Contact Us" />} />
-            <Route path="/terms" element={<ComingSoon title="Terms of Service" />} />
-            <Route path="/privacy" element={<ComingSoon title="Privacy Policy" />} />
+            <Route
+              path="/contact"
+              element={<ComingSoon title="Contact Us" />}
+            />
+            <Route
+              path="/terms"
+              element={<ComingSoon title="Terms of Service" />}
+            />
+            <Route
+              path="/privacy"
+              element={<ComingSoon title="Privacy Policy" />}
+            />
             <Route path="/demo" element={<ComingSoon title="Demo" />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

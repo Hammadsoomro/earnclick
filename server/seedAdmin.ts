@@ -8,7 +8,7 @@ const createAdminUser = async () => {
 
     // Check if admin already exists
     const existingAdmin = await User.findOne({ email: "Hammad@earnclick.com" });
-    
+
     if (existingAdmin) {
       console.log("✅ Admin user already exists");
       return;
@@ -29,7 +29,7 @@ const createAdminUser = async () => {
     console.log("✅ Admin user created successfully");
     console.log("📧 Email: Hammad@earnclick.com");
     console.log("🔑 Password: Hammad1992@@");
-    
+
     process.exit(0);
   } catch (error) {
     console.error("❌ Error creating admin user:", error);

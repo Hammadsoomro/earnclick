@@ -65,11 +65,14 @@ export default function AdminDashboard() {
       }
 
       // Fetch pending withdrawals
-      const withdrawalsResponse = await fetch("/api/admin/withdrawals/pending", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const withdrawalsResponse = await fetch(
+        "/api/admin/withdrawals/pending",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         },
-      });
+      );
       if (withdrawalsResponse.ok) {
         const withdrawalsData = await withdrawalsResponse.json();
         setPendingWithdrawals(withdrawalsData);
@@ -92,7 +95,10 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleWithdrawalAction = async (withdrawalId: string, status: string) => {
+  const handleWithdrawalAction = async (
+    withdrawalId: string,
+    status: string,
+  ) => {
     try {
       const response = await fetch(`/api/admin/withdrawals/${withdrawalId}`, {
         method: "PUT",
@@ -218,7 +224,9 @@ export default function AdminDashboard() {
               <CardContent>
                 {pendingWithdrawals.length === 0 ? (
                   <div className="text-center py-8">
-                    <p className="text-muted-foreground">No pending withdrawals</p>
+                    <p className="text-muted-foreground">
+                      No pending withdrawals
+                    </p>
                   </div>
                 ) : (
                   <Table>
@@ -251,14 +259,19 @@ export default function AdminDashboard() {
                             <Badge variant="outline">{withdrawal.method}</Badge>
                           </TableCell>
                           <TableCell>
-                            {new Date(withdrawal.requestedAt).toLocaleDateString()}
+                            {new Date(
+                              withdrawal.requestedAt,
+                            ).toLocaleDateString()}
                           </TableCell>
                           <TableCell>
                             <div className="flex space-x-2">
                               <Button
                                 size="sm"
                                 onClick={() =>
-                                  handleWithdrawalAction(withdrawal._id, "approved")
+                                  handleWithdrawalAction(
+                                    withdrawal._id,
+                                    "approved",
+                                  )
                                 }
                                 className="bg-green-500 hover:bg-green-600"
                               >
@@ -269,7 +282,10 @@ export default function AdminDashboard() {
                                 size="sm"
                                 variant="destructive"
                                 onClick={() =>
-                                  handleWithdrawalAction(withdrawal._id, "rejected")
+                                  handleWithdrawalAction(
+                                    withdrawal._id,
+                                    "rejected",
+                                  )
                                 }
                               >
                                 <XCircle className="h-4 w-4 mr-1" />
@@ -293,7 +309,9 @@ export default function AdminDashboard() {
                   <Users className="h-5 w-5" />
                   <span>User Management</span>
                 </CardTitle>
-                <CardDescription>View and manage platform users</CardDescription>
+                <CardDescription>
+                  View and manage platform users
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -309,7 +327,9 @@ export default function AdminDashboard() {
                   <TableBody>
                     {users.map((user: any) => (
                       <TableRow key={user._id}>
-                        <TableCell className="font-medium">{user.name}</TableCell>
+                        <TableCell className="font-medium">
+                          {user.name}
+                        </TableCell>
                         <TableCell>{user.email}</TableCell>
                         <TableCell>
                           <Badge variant="secondary">{user.level}</Badge>
@@ -337,7 +357,9 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
-                  <p className="text-muted-foreground">Ad management coming soon</p>
+                  <p className="text-muted-foreground">
+                    Ad management coming soon
+                  </p>
                   <Button className="mt-4">Create New Ad</Button>
                 </div>
               </CardContent>
@@ -355,7 +377,9 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
-                  <p className="text-muted-foreground">Settings panel coming soon</p>
+                  <p className="text-muted-foreground">
+                    Settings panel coming soon
+                  </p>
                 </div>
               </CardContent>
             </Card>
