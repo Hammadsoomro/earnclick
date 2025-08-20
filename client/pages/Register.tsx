@@ -49,29 +49,42 @@ export default function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent double submission
+    if (isLoading) return;
+
     setIsLoading(true);
     setError("");
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      setIsLoading(false);
-      return;
-    }
+    try {
+      if (formData.password !== formData.confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
 
-    const success = await register({
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      referralCode: formData.referralCode,
-    });
+      if (formData.password.length < 6) {
+        setError("Password must be at least 6 characters long");
+        return;
+      }
 
-    if (success) {
-      navigate("/dashboard", { replace: true });
-    } else {
+      const success = await register({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        referralCode: formData.referralCode,
+      });
+
+      if (success) {
+        navigate("/dashboard", { replace: true });
+      } else {
+        setError("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
       setError("Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const benefits = [

@@ -32,19 +32,28 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Prevent double submission
+    if (isLoading) return;
+
     setIsLoading(true);
     setError("");
 
-    const success = await login(formData.email, formData.password);
+    try {
+      const success = await login(formData.email, formData.password);
 
-    if (success) {
-      const from = location.state?.from?.pathname || "/dashboard";
-      navigate(from, { replace: true });
-    } else {
-      setError("Invalid email or password");
+      if (success) {
+        const from = location.state?.from?.pathname || "/dashboard";
+        navigate(from, { replace: true });
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

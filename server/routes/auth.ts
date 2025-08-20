@@ -16,6 +16,11 @@ export const handleRegister: RequestHandler = async (req, res) => {
   try {
     const { email, password, name, referralCode } = req.body;
 
+    // Validate required fields
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
     // Mock user registration when database is not available
     if (!isDatabaseConnected()) {
       const mockUser = {
@@ -104,6 +109,11 @@ export const handleLogin: RequestHandler = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Validate required fields
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
     // Mock admin login when database is not available
     if (!isDatabaseConnected()) {
       if (email === "Hammad@earnclick.com" && password === "Hammad1992@@") {
@@ -128,8 +138,8 @@ export const handleLogin: RequestHandler = async (req, res) => {
         });
       }
 
-      return res.status(503).json({
-        error: "Database not available. Please try again later."
+      return res.status(400).json({
+        error: "Invalid credentials"
       });
     }
 

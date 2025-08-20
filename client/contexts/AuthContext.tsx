@@ -49,26 +49,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
+      const requestBody = JSON.stringify({ email, password });
+
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: requestBody,
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Login failed:", errorText);
+        return false;
+      }
 
       const data = await response.json();
 
-      if (response.ok) {
-        setUser(data.user);
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        return true;
-      } else {
-        console.error("Login failed:", data.error);
-        return false;
-      }
+      setUser(data.user);
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      return true;
     } catch (error) {
       console.error("Login error:", error);
       return false;
@@ -77,26 +80,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (registerData: RegisterData): Promise<boolean> => {
     try {
+      const requestBody = JSON.stringify(registerData);
+
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(registerData),
+        body: requestBody,
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Registration failed:", errorText);
+        return false;
+      }
 
       const data = await response.json();
 
-      if (response.ok) {
-        setUser(data.user);
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        return true;
-      } else {
-        console.error("Registration failed:", data.error);
-        return false;
-      }
+      setUser(data.user);
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      return true;
     } catch (error) {
       console.error("Registration error:", error);
       return false;
